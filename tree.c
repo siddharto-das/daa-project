@@ -1,7 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "employees.h"
 
@@ -40,7 +40,7 @@ struct tree *read_tree (FILE *input)
 
 void destroy_tree (struct tree *work)
 {
-        int cidx, coupon;
+	int cidx, coupon;
 
 	if (work == NULL)
 		return;

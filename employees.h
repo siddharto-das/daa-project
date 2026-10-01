@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <stddef.h>
+#include <stdio.h>
 
 #define COUPON_COUNT 3
 
@@ -9,7 +9,7 @@ struct tree {
 	struct suborder {
 		int bad;
 		int *nextset;
-        } solv[COUPON_COUNT];
+	} solv[COUPON_COUNT];
 };
 
 struct tree *read_tree(FILE *input);

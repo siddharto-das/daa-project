@@ -17,16 +17,16 @@ int main ()
 	if (employees == NULL) {
 		fprintf(stderr, "cannot convert input to tree\n");
 		return 1;
-        }
+	}
 	postorder_act(employees, compute_order);
 
-        min = -1;
-        for (coupon = 0; coupon < COUPON_COUNT; coupon++) {
-                if (min < 0 || employees->solv[coupon].bad < min) {
-                        min = employees->solv[coupon].bad;
-                        min_coupon = coupon;
-                }
-        }
+	min = -1;
+	for (coupon = 0; coupon < COUPON_COUNT; coupon++) {
+		if (min < 0 || employees->solv[coupon].bad < min) {
+			min = employees->solv[coupon].bad;
+			min_coupon = coupon;
+		}
+	}
 	write_tree_marked(employees, min_coupon, 0);
 	destroy_tree(employees);
 
@@ -50,7 +50,7 @@ void compute_order (struct tree *work)
 	int more_bad;
 	int angry;
 
-        if (work->multi > 0) {
+	if (work->multi > 0) {
 		for (curr = 0; curr < COUPON_COUNT; curr++) {
 			work->solv[curr].bad = 0;
 			work->solv[curr].nextset = malloc(
@@ -63,7 +63,7 @@ void compute_order (struct tree *work)
 					if (curr == comp) {
 						angry++;
 						continue;
-                                        }
+					}
 					more_bad = child->solv[comp].bad +
 					    angry;
 					if (min < 0 || more_bad < min) {
@@ -75,7 +75,7 @@ void compute_order (struct tree *work)
 				work->solv[curr].nextset[cidx] = min_coupon;
 			}
 		}
-        }
+	}
 }
 
 /* TODO: prettify output */
@@ -90,9 +90,9 @@ void write_tree_marked (struct tree *work, int spec, int level)
 		for (i = 0; i < level - 1; i++)
 			putchar('-');
 		putchar('>');
-        }
-        printf("%s\n", label[spec]);
-        for (cidx = 0; cidx < work->multi; cidx++)
+	}
+	printf("%s\n", label[spec]);
+	for (cidx = 0; cidx < work->multi; cidx++)
 		write_tree_marked(work->children[cidx],
 		    work->solv[spec].nextset[cidx], level + 1);
 }
