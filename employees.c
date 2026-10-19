@@ -1,3 +1,6 @@
+#define _POSIX_C_SOURCE 202405L
+
+#include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,12 +10,13 @@ int main ()
 {
 	void postorder_act(struct tree *, void (*)(struct tree *));
 	void compute_order(struct tree *);
-	void write_tree_marked(struct tree *, int, int);
+	void write_tree(struct tree *, int);
 
 	struct tree *employees;
 	int coupon;
 	int min, min_coupon;
 
+	setlocale(LC_ALL, "C.UTF-8");
 	employees = read_tree(stdin);
 	if (employees == NULL) {
 		fprintf(stderr, "cannot convert input to tree\n");
@@ -27,7 +31,7 @@ int main ()
 			min_coupon = coupon;
 		}
 	}
-	write_tree_marked(employees, min_coupon, 0);
+	write_tree(employees, min_coupon);
 	destroy_tree(employees);
 
 	return 0;
@@ -59,12 +63,14 @@ void compute_order (struct tree *work)
 				child = work->children[cidx];
 				min = -1;
 				angry = 0;
-				for (comp = 0; comp < COUPON_COUNT; comp++) {
+				for (comp = 0; comp < COUPON_COUNT;
+				    comp++) {
 					if (curr == comp) {
 						angry++;
 						continue;
 					}
-					more_bad = child->solv[comp].bad +
+					more_bad =
+					    child->solv[comp].bad +
 					    angry;
 					if (min < 0 || more_bad < min) {
 						min = more_bad;
@@ -72,27 +78,9 @@ void compute_order (struct tree *work)
 					}
 				}
 				work->solv[curr].bad += min;
-				work->solv[curr].nextset[cidx] = min_coupon;
+				work->solv[curr].nextset[cidx] =
+				    min_coupon;
 			}
 		}
 	}
-}
-
-/* TODO: prettify output */
-void write_tree_marked (struct tree *work, int spec, int level)
-{
-	static char *label[COUPON_COUNT] = { "1000", "2000", "3000" };
-
-	int i;
-	size_t cidx;
-
-	if (level) {
-		for (i = 0; i < level - 1; i++)
-			putchar('-');
-		putchar('>');
-	}
-	printf("%s\n", label[spec]);
-	for (cidx = 0; cidx < work->multi; cidx++)
-		write_tree_marked(work->children[cidx],
-		    work->solv[spec].nextset[cidx], level + 1);
 }

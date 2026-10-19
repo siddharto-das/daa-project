@@ -1,3 +1,5 @@
+#define _POSIX_C_SOURCE 202405L
+
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -17,7 +19,8 @@ struct tree *read_tree (FILE *input)
 		return NULL;
 	prod = malloc(sizeof(struct tree));
 	prod->multi = multi;
-	prod->children = multi ? malloc(sizeof(struct tree *) * multi) : NULL;
+	prod->children = multi ? malloc(sizeof(struct tree *) * multi) :
+				 NULL;
 	failed = false;
 	for (i = 0; i < multi; i++) {
 		if (failed) {
@@ -58,12 +61,12 @@ int _get_num (FILE *input)
 	int num;
 	int c;
 
-	while (isspace(c = getchar()))
+	while (isspace(c = getc(input)))
 		;
 	if (!isdigit(c))
 		return -1;
 	num = c - '0';
-	while (isdigit(c = getchar()))
+	while (isdigit(c = getc(input)))
 		num = 10 * num + c - '0';
 	ungetc(c, input);
 	return num;
