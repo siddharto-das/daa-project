@@ -20,8 +20,8 @@ void _write_tree_r (struct tree *work, int spec, const wchar_t *prefix,
 	wchar_t *newpre;
 	printf("%ls%ls%d\n", prefix == NULL ? L"" : prefix,
 	    prefix == NULL ? L"" :
-		fin	   ? L"└── " :
-			     L"├── ",
+		fin	   ? L"\u2514\u2500\u2500 " :
+			     L"\u251C\u2500\u2500 ",
 	    1000 * (spec + 1));
 	if (work->multi) {
 		if (prefix == NULL)
@@ -30,7 +30,8 @@ void _write_tree_r (struct tree *work, int spec, const wchar_t *prefix,
 			newpre = malloc(
 			    sizeof(wchar_t) * (wcslen(prefix) + 5));
 			wcscpy(wcpcpy(newpre, prefix),
-			    fin ? L"    " : L"│   ");
+			    fin ? L"\u00A0\u00A0\u00A0 " :
+				  L"\u2502\u00A0\u00A0 ");
 		}
 		for (cidx = 0; cidx < work->multi - 1; cidx++)
 			_write_tree_r(work->children[cidx],

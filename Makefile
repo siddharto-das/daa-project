@@ -9,9 +9,10 @@ bin:
 bin/employees: employees.o tree.o treedump.o
 	$(CC) $(CFLAGS) -o $@ $^
 
-doc:
-	mkdir doc
+.PHONY: clean test
 
-.PHONY: clean
 clean:
 	rm *.o
+
+test: bin/employees
+	sh ./t/test.sh ./bin/employees ./t/*.t

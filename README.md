@@ -1,5 +1,9 @@
 # daa-project
 
+This repository is for the files associated with a semester project
+for the Design and Analysis of Algorithms course offered at ISI
+Bangalore in the year 2026-27.
+
 ## Using this repository
 
 To compile the binary `employees`:
@@ -8,9 +12,11 @@ To compile the binary `employees`:
 
 The binary will be compiled into a directory named `bin/`.
 
-To prepare the documentation:
+To examine the programme on test cases:
 
-    make doc
+    make test
+
+The project report is available at `doc/report.pdf`.
 
 ## Using the programme
 
@@ -39,7 +45,8 @@ A tree is specified by a sequence of non-negative integers separated
 by whitespace listing the number of children of each node in the tree
 (including the leaf nodes) in pre-order.
 
-The output is a human-readable description of a tree resembling the output of the Linux utility `tree`.
+The output is a human-readable description of a tree resembling the
+output of the Linux utility `tree`.
 
 Given below is an example of a typical use case.
 
@@ -71,3 +78,8 @@ Given below is an example of a typical use case.
                 ├── 1000
                 ├── 1000
                 └── 1000
+
+## Authors
+
+1. Anuvab De
+2. Siddharto Das
